@@ -74,5 +74,45 @@ typedef Vector3<float> Vector3f;
 const Vector3<int> zero3i();
 const Vector3<float> zero3f();
 
+template <typename T> class Point3 {
+    //Point3 is a point in 3 dimensions
+public:
+    //--Class variables--
+    //x, y, z coordinates
+    T x, y, z;
+
+    //--Constructors--
+    //Default constructor
+    Point3();
+    //Parametric constructor
+    Point3(T x_, T y_, T z_);
+
+    //--Accessors--
+    //overloaded index operator to allow point to be accesssed like an array
+    T operator[] (int i) const;
+    T& operator[](int i);
+
+    //--Point operations--
+    
+    //Point-vector addition and +=
+    //Note: + and - only work when its Point + Vector (this returns a point)
+    //Vector + point would not make sense since it would imply a vector is returned
+    //and points cannot be added to vectors
+    Point3<T> operator+ (const Vector3<T> &vec) const;
+    Point3<T>& operator+= (const Vector3<T> &vec);
+    //Point-vector subtraction
+    Point3<T> operator- (const Vector3<T> &vec) const;
+    Point3<T>& operator-= (const Vector3<T> &vec);
+
+    //Point-point subtraction
+    //e.g. Vector AB = point B - point A
+    Vector3<T> operator- (const Point3<T> &rhs) const;
+
+};
+
+//Distance between two points
+template <typename T>
+float Distance(const Point3<T> &lhs,const Point3<T> &rhs);
+
 //include implementation file
 #include "geometry.tpp"

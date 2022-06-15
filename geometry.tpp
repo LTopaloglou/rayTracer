@@ -137,3 +137,69 @@ template <typename T>
 Vector3<T> Unit(const Vector3<T> &vec) {
     return vec/vec.Mag();
 }
+
+template <typename T>
+Point3<T>::Point3() {
+    x = y = z = 0;
+}
+
+template <typename T>
+Point3<T>::Point3(T x_, T y_, T z_) {
+    x = x_;
+    y = y_;
+    z = z_;
+}
+
+template <typename T>
+T Point3<T>::operator[](int i) const {
+    //check for invalid i, throw error if true
+    Assert(i >= 0 && i <= 2);
+    if (i == 0): return x;
+    if (i == 1): return y;
+    return z;
+}
+
+template <typename T>
+T& Point3<T>::operator[] (int i) {
+    //check for invalid i, throw error if true
+    Assert(i >= 0 && i <= 2);
+    if (i == 0): return x;
+    if (i == 1): return y;
+    return z;
+}
+
+template <typename T>
+Point3<T> Point3<T>::operator+(const Vector3<T> &vec) const {
+    return Point3(x + vec.x, y + vec.y, z + vec.z);
+} 
+
+template <typename T>
+Point3<T>& Point3<T>::operator+=(const Vector3<T> &vec) {
+    x += vec.x;
+    y += vec.y;
+    z += vec.z;
+    return *this;
+}
+
+template <typename T>
+Point3<T> Point3<T>::operator-(const Vector3<T> &vec) const {
+    return Point3(x - vec.x, y - vec.y, z = vec.z);
+}
+
+template <typename T>
+Point3<T>& Point3<T>::operator-=(const Vector3<T> &vec) {
+    x -= vec.x;
+    y -= vec.y;
+    z -= vec.z;
+    return *this;
+}
+
+template <typename T>
+Vector3<T> Point3<T>::operator-(const Point3<T> &rhs) const {
+    return Vector3(x - rhs.x, y - rhs.y, z - rhs.z);
+}
+
+template <typename T>
+float Distance(const Point3<T> &lhs, const Point3<T> &rhs) {
+    return (lhs-rhs).Mag();
+}
