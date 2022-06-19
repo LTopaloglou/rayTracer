@@ -114,5 +114,9 @@ public:
 template <typename T>
 float Distance(const Point3<T> &lhs,const Point3<T> &rhs);
 
+//Linear Interpolation between two points
+template <typename T>
+Point3<float> Lerp(const Point3<T> &lhs, const Point3<T> &rhs, float n);
+
 //include implementation file
 #include "geometry.tpp"

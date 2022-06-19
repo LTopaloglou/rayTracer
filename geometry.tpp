@@ -203,3 +203,10 @@ template <typename T>
 float Distance(const Point3<T> &lhs, const Point3<T> &rhs) {
     return (lhs-rhs).Mag();
 }
+
+template <typename T>
+Point3<float> Lerp(const Point3<T> &lhs, const Point3<T> &rhs, float n) {
+    //n values between 0 and 1 interpolate, negative and >1 values extrapolate
+    Vector3<float> vec = rhs - lhs;
+    return lhs + (n*vec);
+}
