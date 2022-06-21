@@ -177,7 +177,7 @@ class Matrix4x4 {
     //which is why it is 4x4 and not 3x3
 public:
     //--class variables--
-    float m[16];
+    float m[4][4];
 
     //--Constructors--
     //default constructor creates an identity matrix
