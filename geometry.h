@@ -118,5 +118,61 @@ float Distance(const Point3<T> &lhs,const Point3<T> &rhs);
 template <typename T>
 Point3<float> Lerp(const Point3<T> &lhs, const Point3<T> &rhs, float n);
 
+//definitions to make life easy
+typedef Point3<int> Point3i;
+typedef Point3<float> Point3f;
+template <typename T> class Normal3 {
+    //class that represents a normal to a surface.
+    //note that although similar to vector it is not the same
+public:
+    //--Class variables--
+    T x, y, z;
+
+    //--Constructors--
+    //defining a normal from a vector
+    Normal3(const Vector3<T> & vec);
+};
+
+class Ray {
+    //this class represents a ray being shot from the camera
+public:
+    //--Class Variables--
+    Point3f origin; // origin of the vector
+    Vector3f direction; //direction vector of the ray
+    mutable float max; //max scalar multiple of direction that is allowed
+    float time; //time associated with the ray
+    const Medium *medium; //the medium (e.g. air, fog, water etc) that the ray travels thrhough
+
+    //--Constructors--
+    //default constructor
+    Ray();
+    //origin - direction constructor
+    Ray(const Point3f & origin_, const Vector3f & direction_);
+
+    //Overloaded Operators
+    Point3f operator()(float f);
+};
+
+template <typename T> class Bounds3 {
+    //class that represents a bounding box of an object
+public:
+    //--Class variables--
+    Point3<T> min, max;
+
+    //--Constructors--
+    //default constructor
+    Bounds3();
+    //min point + x,y,z, distance constructor
+    Bounds3(const Point3<T> & min_, T x_, T y_, T z_);
+    //two-point constructor. Note that since p2 is not always greater than p1, 
+    //we must first work out the maximums in each x,y,z directions and create new points
+    Bounds3(const Point3<T> & p1, const Point3<T> & p2);
+    //single point bound (bounds nothing but that point)
+    Bounds3(const Point3<T> & point);
+};
+class Medium {
+
+};
+
 //include implementation file
 #include "geometry.tpp"

@@ -210,3 +210,55 @@ Point3<float> Lerp(const Point3<T> &lhs, const Point3<T> &rhs, float n) {
     Vector3<float> vec = rhs - lhs;
     return lhs + (n*vec);
 }
+
+template <typename T>
+Normal3<T>::Normal3(const Vector3<T> & vec) {
+    x = vec.x;
+    y = vex.y;
+    z = vec.z;
+}
+
+Ray::Ray() {
+    max = std::numeric_limits<float>::max();
+    time = 0.f;
+    medium = nullptr;
+}
+
+Ray::Ray(const Point3f & origin_, const Vector3f & direction_) {
+    origin = origin_;
+    direction = direction_; 
+    max = std::numeric_limits<float>::max();
+    time = 0.f;
+    medium = nullptr;
+}
+
+Point3f Ray::operator()(float f) {
+    return origin + (direction * f);
+}
+
+template <typename T>
+Bounds3<T>::Bounds3() {
+    //default constructor sets points to invalid
+    //values since max < min
+    T lowest = std::numeric_limits<T>::min();
+    T highest = std::numeric_limits<T>::max();
+    min = Point3<T>(highest, highest, highest);
+    max = Point3<T>(lowest, lowest, lowest);
+}
+
+template <typename T>
+Bounds3<T>::Bounds3(const Point3<T> & min_, T x_, T y_, T z_) {
+    min = min_;
+    max = Point3<T>(min.x + x_, min.y + y_, min.z + z_);
+}
+
+template <typename T>
+Bounds3<T>::Bounds3(const Point3<T> & p1, const Point3<T> & p2) {
+    min = Point3<T> (std::min(p1.x, p2.x), std::min(p1.y, p2.y), std::min(p1.z, p2.z));
+    max = Point3<T> (std::max(p1.x, p2.x), std::max(p1.y, p2.y), std::max(p1.z, p2.z));
+}
+
+template <typename T>
+Bounds3<T>::Bounds3(const Point3<T> & point) {
+    min = max = point;
+}
