@@ -170,6 +170,28 @@ public:
     //single point bound (bounds nothing but that point)
     Bounds3(const Point3<T> & point);
 };
+
+class Matrix4x4 {
+    //class that represents a 4x4 matrix. It will be used for both
+    //linear transformations & transformations between coordinate systems
+    //which is why it is 4x4 and not 3x3
+public:
+    //--class variables--
+    float m[16];
+
+    //--Constructors--
+    //default constructor creates an identity matrix
+    Matrix4x4();
+    //paramatric constructor
+    Matrix4x4(float m00, float m01, float m02, float m03,
+              float m10, float m11, float m12, float m13,
+              float m20, float m21, float m22, float m23,
+              float m30, float m31, float m32, float m33);
+
+
+    //Overloaded operators
+};
+
 class Medium {
 
 };
