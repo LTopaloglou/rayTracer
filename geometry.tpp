@@ -296,3 +296,10 @@ Matrix4x4::Matrix4x4(float m00, float m01, float m02, float m03,
     m[3][2] = m32;
     m[3][3] = m33;
 }
+
+Matrix4x4 Matrix4x4::operator+(const Matrix4x4 & rhs) {
+    return Matrix4x4(m[0][0] + rhs.m[0][0], m[0][1] + rhs.m[0][1], m[0][2] + rhs.m[0][2], m[0][3] + rhs.m[0][3],
+                     m[1][0] + rhs.m[1][0], m[1][1] + rhs.m[1][1], m[1][2] + rhs.m[1][2], m[1][3] + rhs.m[1][3],
+                     float m20, float m21, float m22, float m23,
+                     float m30, float m31, float m32, float m33);
+}
