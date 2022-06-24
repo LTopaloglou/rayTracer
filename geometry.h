@@ -192,6 +192,8 @@ public:
     //Overloaded operators
     //matrix addition
     Matrix4x4 operator+(const Matrix4x4 & rhs);
+    //matrix subtraction
+    Matrix4x4 operator-(const Matrix4x4 & rhs);
 };
 
 class Medium {
