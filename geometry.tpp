@@ -273,9 +273,9 @@ Matrix4x4::Matrix4x4() {
 }
 
 Matrix4x4::Matrix4x4(float m00, float m01, float m02, float m03,
-              float m10, float m11, float m12, float m13,
-              float m20, float m21, float m22, float m23,
-              float m30, float m31, float m32, float m33) {
+                    float m10, float m11, float m12, float m13,
+                    float m20, float m21, float m22, float m23,
+                    float m30, float m31, float m32, float m33) {
     m[0][0] = m00;
     m[0][1] = m01;
     m[0][2] = m02;
@@ -323,4 +323,27 @@ Matrix4x4 Matrix4x4::operator-=(const Matrix4x4 & rhs) {
     m[1][0] -= rhs.m[1][0]; m[1][1] -= rhs.m[1][1]; m[1][2] -= rhs.m[1][2]; m[1][3] -= rhs.m[1][3];
     m[2][0] -= rhs.m[2][0]; m[2][1] -= rhs.m[2][1]; m[2][2] -= rhs.m[2][2]; m[2][3] -= rhs.m[2][3];
     m[3][0] -= rhs.m[3][0]; m[3][1] -= rhs.m[3][1]; m[3][2] -= rhs.m[3][2]; m[3][3] -= rhs.m[3][3]; 
+}
+
+template <typename T>
+Vector3f Matrix4x4::operator*(const Vector3<T> & rhs) const {
+    //treat matrix like 3x3 matrix for this operation
+    return Vector3f(m[0][0]*rhs.x + m[0][1]*rhs.y + m[0][2]*rhs.z,
+                    m[1][0]*rhs.x + m[1][1]*rhs.y + m[1][2]*rhs.z,
+                    m[2][0]*rhs.x + m[2][1]*rhs.y + m[2][2]*rhs.z);
+}
+
+Matrix4x4 Matrix4x4::operator*(const Matrix4x4 & rhs) const {
+    //multiply rows of this with columns of rhs for each element
+    return Matrix4x4(m[0][0]*rhs.m[0][0] + m[0][1]*rhs.m[1][0] + m[0][2]*rhs.m[2][0] + m[0][3]*rhs.m[3][0], m[0][0]*rhs.m[0][1] + m[0][1]*rhs.m[1][1] + m[0][2]*rhs.m[2][1] + m[0][3]*rhs.m[3][1], m[0][0]*rhs.m[0][2] + m[0][1]*rhs.m[1][2] + m[0][2]*rhs.m[2][2] + m[0][3]*rhs.m[3][2], m[0][0]*rhs.m[0][3] + m[0][1]*rhs.m[1][3] + m[0][2]*rhs.m[2][3] + m[0][3]*rhs.m[3][3],
+                     m[1][0]*rhs.m[0][0] + m[1][1]*rhs.m[1][0] + m[1][2]*rhs.m[2][0] + m[1][3]*rhs.m[3][0], m[1][0]*rhs.m[0][1] + m[1][1]*rhs.m[1][1] + m[1][2]*rhs.m[2][1] + m[1][3]*rhs.m[3][1], m[1][0]*rhs.m[0][2] + m[1][1]*rhs.m[1][2] + m[1][2]*rhs.m[2][2] + m[1][3]*rhs.m[3][2], m[1][0]*rhs.m[0][3] + m[1][1]*rhs.m[1][3] + m[1][2]*rhs.m[2][3] + m[1][3]*rhs.m[3][3],
+                     m[2][0]*rhs.m[0][0] + m[2][1]*rhs.m[1][0] + m[2][2]*rhs.m[2][0] + m[2][3]*rhs.m[3][0], m[2][0]*rhs.m[0][1] + m[2][1]*rhs.m[1][1] + m[2][2]*rhs.m[2][1] + m[2][3]*rhs.m[3][1], m[2][0]*rhs.m[0][2] + m[2][1]*rhs.m[1][2] + m[2][2]*rhs.m[2][2] + m[2][3]*rhs.m[3][2], m[2][0]*rhs.m[0][3] + m[2][1]*rhs.m[1][3] + m[2][2]*rhs.m[2][3] + m[2][3]*rhs.m[3][3],
+                     m[3][0]*rhs.m[0][0] + m[3][1]*rhs.m[1][0] + m[3][2]*rhs.m[2][0] + m[3][3]*rhs.m[3][0], m[3][0]*rhs.m[0][1] + m[3][1]*rhs.m[1][1] + m[3][2]*rhs.m[2][1] + m[3][3]*rhs.m[3][1], m[3][0]*rhs.m[0][2] + m[3][1]*rhs.m[1][2] + m[3][2]*rhs.m[2][2] + m[3][3]*rhs.m[3][2], m[3][0]*rhs.m[0][3] + m[3][1]*rhs.m[1][3] + m[3][2]*rhs.m[2][3] + m[3][3]*rhs.m[3][3]);
+}
+
+void Matrix4x4::print() const {
+    std::cout << m[0][0] << " " << m[0][1] << " " << m[0][2] << " " << m[0][3] << std::endl;
+    std::cout << m[1][0] << " " << m[1][1] << " " << m[1][2] << " " << m[1][3] << std::endl;
+    std::cout << m[2][0] << " " << m[2][1] << " " << m[2][2] << " " << m[2][3] << std::endl;
+    std::cout << m[3][0] << " " << m[3][1] << " " << m[3][2] << " " << m[3][3] << std::endl;
 }

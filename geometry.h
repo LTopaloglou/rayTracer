@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <cmath>
+#include <iostream>
 //This file contains all basic geometric classes necessary for ray tracing
 
 
@@ -196,6 +197,14 @@ public:
     //matrix subtraction
     Matrix4x4 operator-(const Matrix4x4 & rhs) const;
     Matrix4x4 operator-=(const Matrix4x4 & rhs);
+    //matrix-vector product
+    template <typename T>
+    Vector3f operator*(const Vector3<T> & rhs) const; 
+    //matrix multiplication
+    Matrix4x4 operator*(const Matrix4x4 & rhs) const;
+
+    //other useful operations
+    void print() const;
 };
 
 class Medium {
