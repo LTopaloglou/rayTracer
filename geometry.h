@@ -4,6 +4,10 @@
 //This file contains all basic geometric classes necessary for ray tracing
 
 
+#define Assert(T) \
+    if (!(T))          \
+        return false;
+
 template <typename T> class Vector3 {
     //Vector3 is a vector in three dimensions
 public:
@@ -54,7 +58,7 @@ public:
 };
 
 //Scalar multiplication in the case of datatype T * Vector3
-template <typename T>
+template <typename T> 
 Vector3<T> operator* (T i, const Vector3<T> &vec);
 
 //Dot product defined as Dot(vec1, vec2)
@@ -142,7 +146,7 @@ public:
     Vector3f direction; //direction vector of the ray
     mutable float max; //max scalar multiple of direction that is allowed
     float time; //time associated with the ray
-    const Medium *medium; //the medium (e.g. air, fog, water etc) that the ray travels thrhough
+    //const Medium *medium; //the medium (e.g. air, fog, water etc) that the ray travels thrhough **WHY DOESNT THIS WORK?
 
     //--Constructors--
     //default constructor
@@ -208,7 +212,8 @@ public:
 };
 
 class Medium {
-
+public:
+    Medium();
 };
 
 //include implementation file

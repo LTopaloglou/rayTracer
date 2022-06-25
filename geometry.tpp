@@ -19,8 +19,8 @@ template <typename T>
 T Vector3<T>::operator[] (int i) const {
     //check for invalid i, throw error if true
     Assert(i >= 0 && i <= 2);
-    if (i == 0): return x;
-    if (i == 1): return y;
+    if (i == 0) return x;
+    if (i == 1) return y;
     return z;
 }
 
@@ -28,14 +28,14 @@ template <typename T>
 T& Vector3<T>::operator[] (int i) {
     //check for invalid i, throw error if true
     Assert(i >= 0 && i <= 2);
-    if (i == 0): return x;
-    if (i == 1): return y;
+    if (i == 0) return x;
+    if (i == 1) return y;
     return z;
 }
 
 template <typename T>
 Vector3<T> Vector3<T>::operator+ (const Vector3<T> &rhs) const {
-    return Vector3(x + rhs.x, y + rhs.y, z + rhs.z);
+    return Vector3<T>(x + rhs.x, y + rhs.y, z + rhs.z);
 }
 
 template <typename T>
@@ -49,12 +49,12 @@ Vector3<T>& Vector3<T>::operator+= (const Vector3<T> &rhs) {
 template <typename T>
 Vector3<T> Vector3<T>::operator-() const{
     //this function returns the negative of the vector
-    return Vector3(-x, -y, -z);
+    return Vector3<T>(-x, -y, -z);
 }
 
 template <typename T>
 Vector3<T> Vector3<T>::operator-(const Vector3<T> &rhs) const {
-    return (x-rhs.x, y-rhs.y, z-rhs.z);
+    return Vector3<T>(x-rhs.x, y-rhs.y, z-rhs.z);
 }
 
 template <typename T>
@@ -67,7 +67,7 @@ Vector3<T>& Vector3<T>::operator-=(const Vector3<T> &rhs) {
 
 template <typename T>
 Vector3<T> Vector3<T>::operator* (T i) const {
-    return Vector(x*i, y*i, z*i);
+    return Vector3<T>(x*i, y*i, z*i);
 }
 
 template <typename T>
@@ -78,9 +78,9 @@ Vector3<T>& Vector3<T>::operator*= (T i) {
     return *this;
 }
 
-template <typename T>
-Vector3<T> operator* (T i, Vector3<T> vec) {
-    return Vector(vec.x*i, vex.y*i, vec.z*i);
+template <typename T> 
+Vector3<T> operator* (T i, const Vector3<T> &vec) {
+    return Vector3<T>(vec.x*i, vec.y*i, vec.z*i);
 }
 
 template <typename T>
@@ -90,7 +90,7 @@ Vector3<T>  Vector3<T>::operator/ (T i)const {
     //calculate reciprocal of i first since this means only 1 division compared to 3
     //because division takes longer than multiplication
     float reciprocal = 1/i;
-    return Vector(x*reciprocal, y*reciprocal, z*reciprocal);
+    return Vector3<T>(x*reciprocal, y*reciprocal, z*reciprocal);
 }
 
 template <typename T>
@@ -117,15 +117,15 @@ T Dot(const Vector3<T> &lhs, const Vector3<T> &rhs) {
 }
 
 template <typename T>
-Vector3<T> abs() {
-    return Vector3(std::abs(x), std::abs(y), std::abs(z));
+Vector3<T> Vector3<T>::abs() const{
+    return Vector3<T>(std::abs(x), std::abs(y), std::abs(z));
 }
 
 template <typename T>
 Vector3<T> Cross(const Vector3<T> &lhs, const Vector3<T> &rhs) {
     //convert to floats before subtraction to prevent floating point rounding errors
     double lhsx = lhs.x, lhsy = lhs.y, lhsz = lhs.z, rhsx = rhs.x, rhsy = rhs.y, rhsz = rhs.z;
-    return Vector3(lhsy*rhsz - lhsz*rhsy, -(lhsx*rhsz - lhsz*rhsx), lhsx*rhsy - lhsy*rhsx);
+    return Vector3<T>(lhsy*rhsz - lhsz*rhsy, -(lhsx*rhsz - lhsz*rhsx), lhsx*rhsy - lhsy*rhsx);
 }
 
 template <typename T>
@@ -154,8 +154,8 @@ template <typename T>
 T Point3<T>::operator[](int i) const {
     //check for invalid i, throw error if true
     Assert(i >= 0 && i <= 2);
-    if (i == 0): return x;
-    if (i == 1): return y;
+    if (i == 0) return x;
+    if (i == 1) return y;
     return z;
 }
 
@@ -163,8 +163,8 @@ template <typename T>
 T& Point3<T>::operator[] (int i) {
     //check for invalid i, throw error if true
     Assert(i >= 0 && i <= 2);
-    if (i == 0): return x;
-    if (i == 1): return y;
+    if (i == 0) return x;
+    if (i == 1) return y;
     return z;
 }
 
@@ -196,7 +196,7 @@ Point3<T>& Point3<T>::operator-=(const Vector3<T> &vec) {
 
 template <typename T>
 Vector3<T> Point3<T>::operator-(const Point3<T> &rhs) const {
-    return Vector3(x - rhs.x, y - rhs.y, z - rhs.z);
+    return Vector3<T>(x - rhs.x, y - rhs.y, z - rhs.z);
 }
 
 template <typename T>
@@ -214,14 +214,14 @@ Point3<float> Lerp(const Point3<T> &lhs, const Point3<T> &rhs, float n) {
 template <typename T>
 Normal3<T>::Normal3(const Vector3<T> & vec) {
     x = vec.x;
-    y = vex.y;
+    y = vec.y;
     z = vec.z;
 }
 
 Ray::Ray() {
     max = std::numeric_limits<float>::max();
     time = 0.f;
-    medium = nullptr;
+    //medium = nullptr; re implement when mediums work
 }
 
 Ray::Ray(const Point3f & origin_, const Vector3f & direction_) {
@@ -229,7 +229,7 @@ Ray::Ray(const Point3f & origin_, const Vector3f & direction_) {
     direction = direction_; 
     max = std::numeric_limits<float>::max();
     time = 0.f;
-    medium = nullptr;
+    //medium = nullptr; re implement when mediums work
 }
 
 Point3f Ray::operator()(float f) {
@@ -308,7 +308,8 @@ Matrix4x4 Matrix4x4::operator+=(const Matrix4x4 & rhs) {
     m[0][0] += rhs.m[0][0]; m[0][1] += rhs.m[0][1]; m[0][2] += rhs.m[0][2]; m[0][3] += rhs.m[0][3];
     m[1][0] += rhs.m[1][0]; m[1][1] += rhs.m[1][1]; m[1][2] += rhs.m[1][2]; m[1][3] += rhs.m[1][3];
     m[2][0] += rhs.m[2][0]; m[2][1] += rhs.m[2][1]; m[2][2] += rhs.m[2][2]; m[2][3] += rhs.m[2][3];
-    m[3][0] += rhs.m[3][0]; m[3][1] += rhs.m[3][1]; m[3][2] += rhs.m[3][2]; m[3][3] += rhs.m[3][3]; 
+    m[3][0] += rhs.m[3][0]; m[3][1] += rhs.m[3][1]; m[3][2] += rhs.m[3][2]; m[3][3] += rhs.m[3][3];
+    return *this; 
 }
 
 Matrix4x4 Matrix4x4::operator-(const Matrix4x4 & rhs) const {
@@ -322,7 +323,8 @@ Matrix4x4 Matrix4x4::operator-=(const Matrix4x4 & rhs) {
     m[0][0] -= rhs.m[0][0]; m[0][1] -= rhs.m[0][1]; m[0][2] -= rhs.m[0][2]; m[0][3] -= rhs.m[0][3];
     m[1][0] -= rhs.m[1][0]; m[1][1] -= rhs.m[1][1]; m[1][2] -= rhs.m[1][2]; m[1][3] -= rhs.m[1][3];
     m[2][0] -= rhs.m[2][0]; m[2][1] -= rhs.m[2][1]; m[2][2] -= rhs.m[2][2]; m[2][3] -= rhs.m[2][3];
-    m[3][0] -= rhs.m[3][0]; m[3][1] -= rhs.m[3][1]; m[3][2] -= rhs.m[3][2]; m[3][3] -= rhs.m[3][3]; 
+    m[3][0] -= rhs.m[3][0]; m[3][1] -= rhs.m[3][1]; m[3][2] -= rhs.m[3][2]; m[3][3] -= rhs.m[3][3];
+    return *this; 
 }
 
 template <typename T>
