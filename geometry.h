@@ -209,6 +209,10 @@ public:
 
     //other useful operations
     void print() const;
+    Matrix4x4 transpose() const;
+    Matrix4x4 inverse() const;
+    Matrix4x4 adjugate() const;
+    float determinant() const;
 };
 
 class Medium {
