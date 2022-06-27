@@ -11,5 +11,6 @@ int main() {
                   12.f, 13.f, 14.f, 15.f);
     //mat.print();
     Matrix4x4 identity;
+    std::cout << mat.determinant() << std::endl;
     return 0;
 }
