@@ -206,6 +206,9 @@ public:
     Vector3f operator*(const Vector3<T> & rhs) const; 
     //matrix multiplication
     Matrix4x4 operator*(const Matrix4x4 & rhs) const;
+    //Scalar multiplication
+    Matrix4x4 operator*(float s) const;
+    Matrix4x4 operator*= (float s);
 
     //other useful operations
     void print() const;
@@ -214,6 +217,9 @@ public:
     Matrix4x4 adjugate() const;
     float determinant() const;
 };
+
+template <typename T>
+Matrix4x4 operator* (T s, const Matrix4x4 &mat);
 
 class Medium {
 public:
